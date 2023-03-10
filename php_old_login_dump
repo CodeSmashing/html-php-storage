@@ -1,0 +1,37 @@
+<?php
+      if ((empty($_POST["optieInlog"]) == true) || ($_POST["optieInlog"] == "2")) {
+         ?>
+         <form action="process.php" method="post">
+            <div class="inputInlog">
+               <hr><b>Gebruikersnaam :</b><br>
+               <input type="text" name="eName" pattern="[A-z0-9À-ž\s]{2,}" title="Drie of meer characters"
+                  required><br><br>
+
+               <b>Paswoord :</b><br>
+               <input type="password" name="pass" pattern=".{8,}" title="Acht of meer characters"
+                  required><br><br>
+            </div>
+                  <button class="sub_btnInlog" name="registreren" type="submit" value="1">Registreren</button><br>
+         </form>
+         <form method="post">
+            <button class="sub_btnInlog" name="optieInlog" type="submit" value="1" formtarget="_self">Inloggen</button><hr>
+         </form>
+      <?php } else if ($_POST["optieInlog"] == "1") {
+         ?>
+         <form action="process.php" method="post">
+            <div class="inputInlog">
+               <hr><b>Gebruikersnaam :</b><br>
+               <input type="text" name="eName" pattern="[A-z0-9À-ž\s]{2,}" title="Drie of meer characters"
+                  required><br><br>
+                  
+               <b>Paswoord :</b><br>
+               <input type="password" name="pass" pattern=".{8,}" title="Acht of meer characters"
+                  required><br><br>
+            </div>
+            <button class="sub_btnInlog" name="registreren" type="submit" value="0">Inloggen</button><br>
+         </form>
+         <form method="post">
+            <button class="sub_btnInlog" name="optieInlog" type="submit" value="2" formtarget="_self">Registreren</button><hr>
+         </form>
+      <?php }
+      ?>
