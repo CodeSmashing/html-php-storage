@@ -1,0 +1,41 @@
+// Een array aanmaken waarin we neerschrijven hoe vaak iets voorkomt in onze $_SESSION["lijst]
+         foreach ($_SESSION["lijst"] as $key => $val) {
+            $var = (int)filter_var($val, FILTER_SANITIZE_NUMBER_INT);
+            $u["Num ".$var]["Count"] = count(array_keys($_SESSION["lijst"], $val));
+         }
+
+         $sql = "SELECT stock, id_stock FROM stock";
+         $result = $conn->query($sql);
+
+         $counter = 0;
+         while ($row = $result->fetch_assoc()) {
+            $counter++;
+         }
+         
+         // Zeker maken dat de array even groot is als onze aantal producten
+         for ($m = 1; $m <= $counter; $m++) {
+            if (array_key_exists("Num ".$m, $u) === FALSE) {
+               $u["Num ".$m]["Count"] = 0;
+            }
+         }
+         
+         
+         
+         while ($row = $result->fetch_assoc()) {
+            foreach ($u["Num ".$row["id_stock"]] as $key => $val) {
+               echo "<br>Dit is de geselecteerde stock: ".$row["stock"]."<br>";
+               
+               $calc = $row["stock"] - $val;
+               echo "<br>Dit is onze stock als we er ".$val." van af trekken: ".$calc."<br>";
+               
+               $sql2 = "UPDATE stock SET stock = $calc WHERE stock.id_stock = ".$row["id_stock"].";";
+               $result2 = $conn->query($sql2);
+               echo $row["stock"]." is de zogezegde stock<br>";
+               echo $val." is de zogezegde value<br>";
+               echo $calc." is de zogezegde calc<br>";
+
+               $sql3 = "SELECT stock, id_stock FROM stock";
+               $result3 = $conn->query($sql3);
+               $row3 = $result3->fetch_assoc();
+            }
+          }
